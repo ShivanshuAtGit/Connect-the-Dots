@@ -30,9 +30,9 @@ function App() {
       <h1 className="heading" >Connect the Dots</h1>
       {
         isStarted ? <section className="section">
-          <Players playerName={values.player1} color="yellow" />
+          <Players playerName={values.player1 || "Player 1"} color="yellow" />
           <BaseContainer numX={parseInt(values.row)} numY={parseInt(values.cell)} />
-          <Players playerName={values.player2} color="red" />
+          <Players playerName={values.player2 || "Player 2"} color="red" />
         </section> : <HomePage handlePlay={handlePlay} />
       }
     </div>

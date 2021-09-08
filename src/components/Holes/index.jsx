@@ -1,8 +1,33 @@
 import React from 'react';
 import './style.css';
 
-const Holes = () => {
-    return (<div className="holes"></div>)
+const Holes = ({ id }) => {
+
+    const drop = e => {
+        e.preventDefault();
+        const hole_id = e.dataTransfer.getData('hole_id');
+
+        const color = document.getElementById(hole_id);
+        const dragColor = window.getComputedStyle(color, null).getPropertyValue("background-color");
+
+        e.target.style.backgroundColor = dragColor;
+    }
+
+    const dragOver = e => {
+        e.preventDefault();
+    }
+
+    return (
+        <div
+            id={id}
+            draggable="false"
+            className="holes"
+            onDrop={drop}
+            onDragOver={dragOver}
+        >
+            {console.log(id)}
+        </div>
+    )
 }
 
 export default Holes;
