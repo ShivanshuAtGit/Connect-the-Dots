@@ -14,6 +14,62 @@ class holeData {
     }
 }
 
+const findHorizontalStatus = () => {
+    let data = { horizontalStatus: false, horWinner: 'null' }
+    for (let j = 0; j < numX; j++) {
+        for (let i = 0; i < numY; i++) {
+            if (numY - i >= 4) {
+                const testId1 = `${j}-${i}`;
+                const testId2 = `${j + 1}-${i}`;
+                const testId3 = `${j + 2}-${i}`;
+                const testId4 = `${j + 3}-${i}`;
+                if (dataObj[testId1].color === dataObj[testId2].color &&
+                    dataObj[testId2].color === dataObj[testId3].color &&
+                    dataObj[testId3].color === dataObj[testId4].color) {
+                    data.horizontalStatus = true;
+                    if (dataObj[testId4].color === 'rgb(255, 0, 0)')
+                        data.horWinner = 'player1';
+                    else data.horWinner = 'player1';
+                    return data;
+                }
+            }
+        }
+    }
+    return data;
+}
+
+
+const findVerticalStatus = () => {
+    let data = { verticalStatus: false, verWinner: 'null' }
+    for (let j = 0; j < numY; j++) {
+        for (let i = 0; i < numX; i++) {
+            if (numX - i >= 4) {
+                const testId1 = `${i}-${j}`;
+                const testId2 = `${i + 1}-${j}`;
+                const testId3 = `${i + 2}-${j}`;
+                const testId4 = `${i + 3}-${j}`;
+                if (dataObj[testId1].color === dataObj[testId2].color &&
+                    dataObj[testId2].color === dataObj[testId3].color &&
+                    dataObj[testId3].color === dataObj[testId4].color) {
+                    data.verticalStatus = true;
+                    if (dataObj[testId4].color === 'rgb(255, 0, 0)')
+                        data.verWinner = 'player1';
+                    else data.verWinner = 'player1';
+                    return data;
+                }
+            }
+        }
+    }
+    return data;
+}
+
+const checkStatus = () => {
+    const { verticalStatus, verWinner } = findVerticalStatus();
+    const { horizontalStatus, horWinner } = findHorizontalStatus();
+    // const { diagonalStatus, diaWinner } = findVerticalStatus();
+
+}
+
 const handleDropEvent = (id, color) => {
     let recent = id;
     const arr = id.split('-');
@@ -28,6 +84,7 @@ const handleDropEvent = (id, color) => {
     }
     document.getElementById(recent).style.backgroundColor = color;
     dataObj[recent].setColor(color);
+    checkStatus();
 }
 
 const generateRow = (cells, row) => {
