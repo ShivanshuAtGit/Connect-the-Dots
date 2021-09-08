@@ -21,12 +21,3 @@ h2.heading{
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.726);
 }
-
-.section {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 50px;
-}
-

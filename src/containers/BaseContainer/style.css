@@ -1,3 +1,11 @@
+.section {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 50px;
+}
+
 .baseContainer {
     /* min-height: 300px;
     min-width: 300px; */

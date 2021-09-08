@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-const Holes = ({ id }) => {
+const Holes = ({ id, handleDropEvent }) => {
 
     const drop = e => {
         e.preventDefault();
@@ -10,7 +10,8 @@ const Holes = ({ id }) => {
         const color = document.getElementById(hole_id);
         const dragColor = window.getComputedStyle(color, null).getPropertyValue("background-color");
 
-        e.target.style.backgroundColor = dragColor;
+        handleDropEvent(e.target.id, dragColor)
+        // e.target.style.backgroundColor = dragColor;
     }
 
     const dragOver = e => {

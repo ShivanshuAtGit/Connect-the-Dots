@@ -1,6 +1,5 @@
 import React from 'react';
 import BaseContainer from './containers/BaseContainer';
-import Players from './components/Players';
 import HomePage from './containers/HomePage';
 import './App.css';
 
@@ -29,11 +28,14 @@ function App() {
     <div className="container">
       <h1 className="heading" >Connect the Dots</h1>
       {
-        isStarted ? <section className="section">
-          <Players playerName={values.player1 || "Player 1"} color="yellow" />
-          <BaseContainer numX={parseInt(values.row)} numY={parseInt(values.cell)} />
-          <Players playerName={values.player2 || "Player 2"} color="red" />
-        </section> : <HomePage handlePlay={handlePlay} />
+        isStarted ?
+          <BaseContainer
+            numX={parseInt(values.row)}
+            numY={parseInt(values.cell)}
+            player1={values.player1}
+            player2={values.player1}
+          />
+          : <HomePage handlePlay={handlePlay} />
       }
     </div>
   );
