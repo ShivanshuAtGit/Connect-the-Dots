@@ -1,0 +1,54 @@
+.frontPage {
+    width: 40%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.747);
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.281);
+    padding: 20px;
+}
+
+.inputTxt {
+    border: 0;
+    padding: 6px 8px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.877);
+}
+
+.inputTxt:focus{
+    outline: none;
+    border-bottom: 2px solid rgb(92, 92, 92);
+    padding: 5px 8px;
+}
+
+.data_field {
+    margin: 10px;
+}
+
+.block {
+    border-bottom: 2px solid rgb(134, 134, 134);
+}
+
+.block:first-of-type{
+    border-top: 2px solid rgb(134, 134, 134);
+    margin-top: 20px;
+}
+
+.btn_box {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+
+#submit {
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.288);
+    transition: all 0.1s ease-in;
+}
+
+#submit:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.411);
+}

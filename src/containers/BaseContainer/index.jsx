@@ -4,15 +4,12 @@ import generateMatrix from './helper';
 import './style.css';
 
 const BaseContainer = ({ numX, numY }) => {
-
-
     return (
         <div className="baseContainer">
             <div className="grid_box">
-                <table>
+                <table cellspacing="5">
                     {generateMatrix(numX, numY)}
                 </table>
-
             </div>
         </div>
     )
