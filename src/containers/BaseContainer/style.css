@@ -1,0 +1,14 @@
+.baseContainer {
+    /* min-height: 300px;
+    min-width: 300px; */
+    background-color: rgba(255, 255, 255, 0.747);
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.281);
+    padding: 10px;
+}
+
+.grid_box {
+    background-color: rgb(0, 205, 212);
+    border-radius: 10px;
+    padding: 5px;
+}

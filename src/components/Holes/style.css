@@ -1,0 +1,7 @@
+.holes {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid rgb(86, 92, 91);
+    background-color: rgba(255, 255, 255, 0.747);
+}
