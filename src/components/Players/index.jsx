@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.css';
 
-const Players = ({ playerName, color }) => {
+const Players = ({ playerName, color, playStatus }) => {
+
     const dragStart = e => {
         const target = e.target;
         e.dataTransfer.setData('hole_id', target.id);
@@ -11,15 +12,25 @@ const Players = ({ playerName, color }) => {
         e.stopPropagation();
     }
 
+    // const onDragEnd = e => {
+    //     if (e.dataTransfer.dropEffect) {
+    //         setTerm(preState => !preState);
+    //     }
+    // }
+
     return (
-        <div className="player_box">
+        <div className={playStatus ? "activeBox" : "player_box"}>
             <h2 className="player_head">{playerName}</h2>
+            {playStatus && <div className="term"></div>}
             <div
                 id={color}
                 className="color_box"
-                draggable="true"
+                draggable={playStatus}
                 onDragStart={dragStart}
-                onDragOver={dragOver} style={{ backgroundColor: color }}></div>
+                // onDragEnd={onDragEnd}
+                onDragOver={dragOver}
+                style={{ backgroundColor: color }}>
+            </div>
         </div>
     )
 }

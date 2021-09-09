@@ -6,8 +6,6 @@ import Holes from '../../components/Holes';
 import { findDiagonalStatus, findHorizontalStatus, findVerticalStatus, holeData, resetObj } from './helper';
 import './style.css';
 
-let dataObj = {};
-
 const BaseContainer = ({ numX, numY, player1, player2 }) => {
 
     const initialData = {
@@ -18,6 +16,8 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
 
     const [modal, setModal] = React.useState(false);
     const [values, setValues] = React.useState(initialData);
+    const [dataObj, setDataObj] = React.useState({});
+    const [term, setTerm] = React.useState(true);
 
     const showModal = () => {
         setModal(true);
@@ -26,6 +26,15 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
     const hideModal = () => {
         setModal(false);
     };
+
+    React.useEffect(() => {
+        for (let i = 0; i < numX; i++) {
+            for (let j = 0; j < numY; j++) {
+                const id = `${i}-${j}`;
+                setDataObj(preState => ({ ...preState, [id]: new holeData(i, j, 'blank') }));
+            }
+        }
+    }, [])
 
     React.useEffect(() => {
         if (dataObj !== {}) {
@@ -39,6 +48,7 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
     const restartGame = () => {
         removeHighlight();
         resetObj(dataObj, numX, numY);
+        setTerm(true);
     }
 
     const showHighlight = () => {
@@ -71,10 +81,6 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
         const { verticalStatus, verWinner, verIds } = findVerticalStatus(dataObj, numX, numY);
         const { horizontalStatus, horWinner, horIds } = findHorizontalStatus(dataObj, numX, numY);
         const { diagonalStatus, diaWinner, diaIds } = findDiagonalStatus(dataObj, numX, numY);
-
-        // console.log("horizonal: ", horizontalStatus, "horwinner", horWinner);
-        // console.log("vert: ", verticalStatus, "ver", verWinner);
-        // console.log("diag: ", diagonalStatus, "di", diaWinner);
 
         if (verticalStatus) {
             setValues({
@@ -112,6 +118,7 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
         document.getElementById(recent).style.backgroundColor = color;
         dataObj[recent].setColor(color);
         checkStatus();
+        setTerm(preState => !preState);
     }
 
     const generateRow = (cells, row) => {
@@ -119,7 +126,6 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
         for (let i = 0; i < cells; i++) {
             const id = `${row}-${i}`;
             cell.push(<td><Holes id={id} handleDropEvent={handleDropEvent} /></td>);
-            dataObj = { ...dataObj, [id]: new holeData(row, i, 'blank') }
         }
         return (
             <tr>
@@ -136,7 +142,6 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
         return row;
     }
 
-
     return (
         <section className="section">
             {modal && (
@@ -150,7 +155,7 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
                 </Modal>
             )}
             <>
-                <Players playerName={player1 || "Player 1"} color="yellow" />
+                <Players playerName={player1 || "Player 1"} playStatus={term} color="yellow" />
                 <div className="baseContainer">
                     <div className="grid_box">
                         <table cellspacing="5">
@@ -158,7 +163,7 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
                         </table>
                     </div>
                 </div>
-                <Players playerName={player2 || "Player 2"} color="red" />
+                <Players playerName={player2 || "Player 2"} playStatus={!term} color="red" />
             </>
 
         </section>
