@@ -28,17 +28,53 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
     };
 
     React.useEffect(() => {
-        // console.log(dataObj?.[5]?.color);
-        if (dataObj !== {})
-            resetObj(dataObj, numX, numY);
+        if (dataObj !== {}) {
+            if (values.status) {
+                showModal();
+                showHighlight();
+            }
+        }
     }, [values]);
+
+    const restartGame = () => {
+        removeHighlight();
+        resetObj(dataObj, numX, numY);
+    }
+
+    const showHighlight = () => {
+        const circle1 = document.getElementById(values.highLightDots[0]);
+        const circle2 = document.getElementById(values.highLightDots[1]);
+        const circle3 = document.getElementById(values.highLightDots[2]);
+        const circle4 = document.getElementById(values.highLightDots[3]);
+
+        circle1.classList.add('border');
+        circle2.classList.add('border');
+        circle3.classList.add('border');
+        circle4.classList.add('border');
+
+    }
+
+    const removeHighlight = () => {
+        const circle1 = document.getElementById(values.highLightDots[0]);
+        const circle2 = document.getElementById(values.highLightDots[1]);
+        const circle3 = document.getElementById(values.highLightDots[2]);
+        const circle4 = document.getElementById(values.highLightDots[3]);
+
+        circle1.classList.remove('border');
+        circle2.classList.remove('border');
+        circle3.classList.remove('border');
+        circle4.classList.remove('border');
+
+    }
 
     const checkStatus = () => {
         const { verticalStatus, verWinner, verIds } = findVerticalStatus(dataObj, numX, numY);
         const { horizontalStatus, horWinner, horIds } = findHorizontalStatus(dataObj, numX, numY);
         const { diagonalStatus, diaWinner, diaIds } = findDiagonalStatus(dataObj, numX, numY);
 
-        console.log("horizonal: ", horizontalStatus, "horwinner", horWinner);
+        // console.log("horizonal: ", horizontalStatus, "horwinner", horWinner);
+        // console.log("vert: ", verticalStatus, "ver", verWinner);
+        // console.log("diag: ", diagonalStatus, "di", diaWinner);
 
         if (verticalStatus) {
             setValues({
@@ -59,7 +95,6 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
                 highLightDots: diaIds,
             })
         }
-
     }
 
     const handleDropEvent = (id, color) => {
@@ -104,21 +139,28 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
 
     return (
         <section className="section">
-            <Players playerName={player1 || "Player 1"} color="yellow" />
-            {modal ? (
-                <Modal show={modal} handleClose={hideModal}>Hello </Modal>
-            ) : (
-                <>
-                    <div className="baseContainer">
-                        <div className="grid_box">
-                            <table cellspacing="5">
-                                {generateMatrix(numX, numY)}
-                            </table>
-                        </div>
-                    </div>
-                    <Players playerName={player2 || "Player 2"} color="red" />
-                </>
+            {modal && (
+                <Modal
+                    show={modal}
+                    handleClose={hideModal}
+                    restartGame={restartGame}
+                >
+                    Congratulations <strong>{values.winner === 'player2' ? player2 : player1}</strong>
+                    !!!! You won.
+                </Modal>
             )}
+            <>
+                <Players playerName={player1 || "Player 1"} color="yellow" />
+                <div className="baseContainer">
+                    <div className="grid_box">
+                        <table cellspacing="5">
+                            {generateMatrix(numX, numY)}
+                        </table>
+                    </div>
+                </div>
+                <Players playerName={player2 || "Player 2"} color="red" />
+            </>
+
         </section>
     )
 }
@@ -126,11 +168,15 @@ const BaseContainer = ({ numX, numY, player1, player2 }) => {
 BaseContainer.propTypes = {
     numX: PropTypes.number,
     numY: PropTypes.number,
+    player1: PropTypes.string,
+    player2: PropTypes.string,
 };
 
 BaseContainer.defaultProps = {
     numX: 5,
     numY: 6,
+    player1: "Player 1",
+    player2: "Player 2",
 };
 
 export default BaseContainer;

@@ -14,7 +14,7 @@ export const resetObj = (dataObj, row, cell) => {
     for (let i = 0; i < row; i++) {
         for (let j = 0; j < cell; j++) {
             const id = `${i}-${j}`
-            console.log(id)
+            // console.log(id)
             dataObj?.[id]?.setColor('blank');
             document.getElementById(id).style.background = "rgba(255, 255, 255, 0.747)";
         }
@@ -34,7 +34,7 @@ export const findDiagonalStatus = (dataObj, numX, numY) => {
                 if (dataObj[testId1].color === dataObj[testId2].color &&
                     dataObj[testId2].color === dataObj[testId3].color &&
                     dataObj[testId3].color === dataObj[testId4].color) {
-                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                    if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
                         data.diagonalStatus = true;
                         data.diaWinner = 'player1';
                         data.diaIds.push(testId1);
@@ -44,7 +44,7 @@ export const findDiagonalStatus = (dataObj, numX, numY) => {
 
                         return data;
                     }
-                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                    else if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
                         data.diagonalStatus = true;
                         data.diaWinner = 'player2';
                         data.diaIds.push(testId1);
@@ -65,7 +65,7 @@ export const findDiagonalStatus = (dataObj, numX, numY) => {
                 if (dataObj[testId1].color === dataObj[testId2].color &&
                     dataObj[testId2].color === dataObj[testId3].color &&
                     dataObj[testId3].color === dataObj[testId4].color) {
-                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                    if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
                         data.diagonalStatus = true;
                         data.diaWinner = 'player1';
                         data.diaIds.push(testId1);
@@ -75,7 +75,7 @@ export const findDiagonalStatus = (dataObj, numX, numY) => {
 
                         return data;
                     }
-                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                    else if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
                         data.diagonalStatus = true;
                         data.diaWinner = 'player2';
                         data.diaIds.push(testId1);
@@ -104,7 +104,7 @@ export const findHorizontalStatus = (dataObj, numX, numY) => {
                 if (dataObj[testId1].color === dataObj[testId2].color &&
                     dataObj[testId2].color === dataObj[testId3].color &&
                     dataObj[testId3].color === dataObj[testId4].color) {
-                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                    if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
                         data.horizontalStatus = true;
                         data.horWinner = 'player1';
                         data.horIds.push(testId1);
@@ -114,7 +114,7 @@ export const findHorizontalStatus = (dataObj, numX, numY) => {
 
                         return data;
                     }
-                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                    else if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
                         data.horizontalStatus = true;
                         data.horWinner = 'player2';
                         data.horIds.push(testId1);
@@ -145,7 +145,7 @@ export const findVerticalStatus = (dataObj, numX, numY) => {
                     dataObj[testId2].color === dataObj[testId3].color &&
                     dataObj[testId3].color === dataObj[testId4].color) {
 
-                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                    if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
                         data.verticalStatus = true;
                         data.verWinner = 'player1';
                         data.verIds.push(testId1);
@@ -155,7 +155,7 @@ export const findVerticalStatus = (dataObj, numX, numY) => {
 
                         return data;
                     }
-                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                    else if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
                         data.verticalStatus = true;
                         data.verWinner = 'player2';
                         data.verIds.push(testId1);

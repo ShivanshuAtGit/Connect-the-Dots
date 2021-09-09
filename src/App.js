@@ -32,8 +32,8 @@ function App() {
           <BaseContainer
             numX={parseInt(values.row)}
             numY={parseInt(values.cell)}
-            player1={values.player1}
-            player2={values.player1}
+            player1={values.player1 === "" ? "Player 1": values.player1}
+            player2={values.player2 === "" ? "Player 2": values.player2}
           />
           : <HomePage handlePlay={handlePlay} />
       }
