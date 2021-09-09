@@ -1,8 +1,4 @@
-import Holes from '../../components/Holes';
-
-let dataObj = {};
-let numX, numY;
-class holeData {
+export class holeData {
     constructor(positionX, positionY, color) {
         this.positionX = positionX;
         this.positionY = positionY;
@@ -14,23 +10,120 @@ class holeData {
     }
 }
 
-const findHorizontalStatus = () => {
-    let data = { horizontalStatus: false, horWinner: 'null' }
+export const resetObj = (dataObj, row, cell) => {
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < cell; j++) {
+            const id = `${i}-${j}`
+            console.log(id)
+            dataObj?.[id]?.setColor('blank');
+            document.getElementById(id).style.background = "rgba(255, 255, 255, 0.747)";
+        }
+    }
+}
+
+export const findDiagonalStatus = (dataObj, numX, numY) => {
+    let data = { diagonalStatus: false, diaWinner: null, diaIds: [] }
+
+    for (let i = 0; i < numX; i++) {
+        for (let j = 0; j < numY; j++) {
+            if (j >= 3 && numX - i >= 4) {
+                const testId1 = `${i}-${j}`;
+                const testId2 = `${i + 1}-${j - 1}`;
+                const testId3 = `${i + 2}-${j - 2}`;
+                const testId4 = `${i + 3}-${j - 3}`;
+                if (dataObj[testId1].color === dataObj[testId2].color &&
+                    dataObj[testId2].color === dataObj[testId3].color &&
+                    dataObj[testId3].color === dataObj[testId4].color) {
+                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                        data.diagonalStatus = true;
+                        data.diaWinner = 'player1';
+                        data.diaIds.push(testId1);
+                        data.diaIds.push(testId2);
+                        data.diaIds.push(testId3);
+                        data.diaIds.push(testId4);
+
+                        return data;
+                    }
+                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                        data.diagonalStatus = true;
+                        data.diaWinner = 'player2';
+                        data.diaIds.push(testId1);
+                        data.diaIds.push(testId2);
+                        data.diaIds.push(testId3);
+                        data.diaIds.push(testId4);
+
+                        return data;
+                    }
+                }
+            }
+
+            else if (numY - j >= 4 && numX - i >= 4) {
+                const testId1 = `${i}-${j}`;
+                const testId2 = `${i + 1}-${j + 1}`;
+                const testId3 = `${i + 2}-${j + 2}`;
+                const testId4 = `${i + 3}-${j + 3}`;
+                if (dataObj[testId1].color === dataObj[testId2].color &&
+                    dataObj[testId2].color === dataObj[testId3].color &&
+                    dataObj[testId3].color === dataObj[testId4].color) {
+                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                        data.diagonalStatus = true;
+                        data.diaWinner = 'player1';
+                        data.diaIds.push(testId1);
+                        data.diaIds.push(testId2);
+                        data.diaIds.push(testId3);
+                        data.diaIds.push(testId4);
+
+                        return data;
+                    }
+                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                        data.diagonalStatus = true;
+                        data.diaWinner = 'player2';
+                        data.diaIds.push(testId1);
+                        data.diaIds.push(testId2);
+                        data.diaIds.push(testId3);
+                        data.diaIds.push(testId4);
+
+                        return data;
+                    }
+                }
+            }
+        }
+    }
+    return data;
+}
+
+export const findHorizontalStatus = (dataObj, numX, numY) => {
+    let data = { horizontalStatus: false, horWinner: null, horIds: [] }
     for (let j = 0; j < numX; j++) {
         for (let i = 0; i < numY; i++) {
             if (numY - i >= 4) {
                 const testId1 = `${j}-${i}`;
-                const testId2 = `${j + 1}-${i}`;
-                const testId3 = `${j + 2}-${i}`;
-                const testId4 = `${j + 3}-${i}`;
+                const testId2 = `${j}-${i + 1}`;
+                const testId3 = `${j}-${i + 2}`;
+                const testId4 = `${j}-${i + 3}`;
                 if (dataObj[testId1].color === dataObj[testId2].color &&
                     dataObj[testId2].color === dataObj[testId3].color &&
                     dataObj[testId3].color === dataObj[testId4].color) {
-                    data.horizontalStatus = true;
-                    if (dataObj[testId4].color === 'rgb(255, 0, 0)')
+                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                        data.horizontalStatus = true;
                         data.horWinner = 'player1';
-                    else data.horWinner = 'player1';
-                    return data;
+                        data.horIds.push(testId1);
+                        data.horIds.push(testId2);
+                        data.horIds.push(testId3);
+                        data.horIds.push(testId4);
+
+                        return data;
+                    }
+                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                        data.horizontalStatus = true;
+                        data.horWinner = 'player2';
+                        data.horIds.push(testId1);
+                        data.horIds.push(testId2);
+                        data.horIds.push(testId3);
+                        data.horIds.push(testId4);
+
+                        return data;
+                    }
                 }
             }
         }
@@ -39,8 +132,8 @@ const findHorizontalStatus = () => {
 }
 
 
-const findVerticalStatus = () => {
-    let data = { verticalStatus: false, verWinner: 'null' }
+export const findVerticalStatus = (dataObj, numX, numY) => {
+    let data = { verticalStatus: false, verWinner: null, verIds: [] }
     for (let j = 0; j < numY; j++) {
         for (let i = 0; i < numX; i++) {
             if (numX - i >= 4) {
@@ -51,11 +144,27 @@ const findVerticalStatus = () => {
                 if (dataObj[testId1].color === dataObj[testId2].color &&
                     dataObj[testId2].color === dataObj[testId3].color &&
                     dataObj[testId3].color === dataObj[testId4].color) {
-                    data.verticalStatus = true;
-                    if (dataObj[testId4].color === 'rgb(255, 0, 0)')
+
+                    if (dataObj[testId4].color === 'rgb(255, 0, 0)') {
+                        data.verticalStatus = true;
                         data.verWinner = 'player1';
-                    else data.verWinner = 'player1';
-                    return data;
+                        data.verIds.push(testId1);
+                        data.verIds.push(testId2);
+                        data.verIds.push(testId3);
+                        data.verIds.push(testId4);
+
+                        return data;
+                    }
+                    else if (dataObj[testId4].color === 'rgb(255, 255, 0)') {
+                        data.verticalStatus = true;
+                        data.verWinner = 'player2';
+                        data.verIds.push(testId1);
+                        data.verIds.push(testId2);
+                        data.verIds.push(testId3);
+                        data.verIds.push(testId4);
+
+                        return data;
+                    }
                 }
             }
         }
@@ -63,52 +172,3 @@ const findVerticalStatus = () => {
     return data;
 }
 
-const checkStatus = () => {
-    const { verticalStatus, verWinner } = findVerticalStatus();
-    const { horizontalStatus, horWinner } = findHorizontalStatus();
-    // const { diagonalStatus, diaWinner } = findVerticalStatus();
-
-}
-
-const handleDropEvent = (id, color) => {
-    let recent = id;
-    const arr = id.split('-');
-    const row = parseInt(arr[0]);
-    const cell = parseInt(arr[1]);
-
-    for (let i = row; i < numX; i++) {
-        const testId = `${i}-${cell}`;
-        if (dataObj[testId].color === 'blank') {
-            recent = testId;
-        }
-    }
-    document.getElementById(recent).style.backgroundColor = color;
-    dataObj[recent].setColor(color);
-    checkStatus();
-}
-
-const generateRow = (cells, row) => {
-    const cell = [];
-    for (let i = 0; i < cells; i++) {
-        const id = `${row}-${i}`;
-        cell.push(<td><Holes id={id} handleDropEvent={handleDropEvent} /></td>);
-        dataObj = { ...dataObj, [id]: new holeData(row, i, 'blank') }
-    }
-    return (
-        <tr>
-            {cell.map((col) => (col))}
-        </tr>
-    )
-}
-
-const generateMatrix = (rows, cell) => {
-    numX = rows;
-    numY = cell;
-    const row = [];
-    for (let i = 0; i < rows; i++) {
-        row.push(generateRow(cell, i))
-    }
-    return row;
-}
-
-export default generateMatrix;

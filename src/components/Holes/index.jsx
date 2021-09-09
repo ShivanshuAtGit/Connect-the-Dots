@@ -26,7 +26,6 @@ const Holes = ({ id, handleDropEvent }) => {
             onDrop={drop}
             onDragOver={dragOver}
         >
-            {console.log(id)}
         </div>
     )
 }
