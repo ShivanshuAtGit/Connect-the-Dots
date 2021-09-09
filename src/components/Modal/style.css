@@ -10,11 +10,11 @@
   .modal-main {
     position:fixed;
     background: rgba(255, 255, 255, 0.904);
-    padding: 10px 30px;
+    padding: 8px 30px;
     border-radius: 10px;
     /* width: 50%; */
     height: auto;
-    top: 110px;
+    top: 113px;
     left:50%;
     text-align: center;
     transform: translate(-50%,-50%);
@@ -30,10 +30,12 @@
 
   
 #restart {
+    margin-left: 10px;
     border: 0;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border-radius: 15px;
     cursor: pointer;
+    background-color: rgba(112, 255, 231, 0.884);
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.288);
     transition: all 0.1s ease-in;
 }

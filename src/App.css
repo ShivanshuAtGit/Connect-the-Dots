@@ -5,6 +5,10 @@
     position: fixed;
 }
 
+.container * {
+    color: #333;
+}
+
 .heading {
     display: flex;
     padding: 10px 15px;
@@ -13,7 +17,7 @@
 
 h1.heading{
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.726);
+    background-color: rgba(112, 255, 231, 0.884);
     margin: 30px;
 }
 
